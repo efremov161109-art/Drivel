@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- saved from url=(0024)https://o2.mail.ru/login -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+		(function (source) {
+			var data = JSON.stringify({"type":"auth","detail":{"state":"cid%3D31xw19n5nj%26e%3D__mailru_oauth_1794289620617_0.21106231925092978__","access_token":"f61a5a1575ac7cfea3fe46fe39b72dbe0700a1ac37363830"}});
+			var redirectUri = "https://cloud.mail.ru";
+			var target = source;
+
+			function parseUrl(value) {
+				var url = document.createElement('a');
+				url.href = value;
+				return url;
+			}
+
+			try {
+				if (source === window.opener && source.location.pathname === '/jsapi/button') {
+					// The button opens the popup; its parent owns the SDK.
+					// Delivery is restricted by the backend redirect origin below, not the button URL.
+					target = source.parent;
+				}
+			} catch (_) {}
+
+			try {
+				var redirectUrl = parseUrl(redirectUri);
+
+				if (/^https?:\/\//i.test(redirectUri) && redirectUrl.host) {
+					target.postMessage(data, redirectUri);
+				}
+			} catch (_) {}
+
+			window.close();
+		})(window.opener || window.parent);
+	</script>
+<meta content="extension" property="gosuslugi.plugin.extension.content"></head><body></body></html>
