@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>BlueDrive</title>
+<style>
+:root{--bg:#030713;--panel:#071329;--blue:#078dff;--cyan:#00d9ff;--purple:#bd35ff;--pink:#f000d8;--white:#eaf5ff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--white);font-family:Arial,sans-serif}
+body{background:radial-gradient(ellipse at 50% 110%,#10265b 0,transparent 48%),linear-gradient(135deg,#020611,#07152d 55%,#030713)}
+.top{height:10%;min-height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5%;border-bottom:1px solid #123b76;box-shadow:0 4px 20px #073b9a55}
+.brand{font-size:clamp(17px,2.1vw,30px);font-weight:800;letter-spacing:2px;color:#eaf5ff;text-shadow:0 0 12px var(--blue)}
+.brand b{color:var(--purple)}.status{font-size:clamp(12px,1.5vw,21px);color:#c6ddff;display:flex;gap:2vw;align-items:center}
+.main{height:69%;display:grid;grid-template-columns:32% 1fr;gap:1.1%;padding:1.4% 1.5% 1%}
+.card{min-width:0;min-height:0;border:1.5px solid var(--blue);border-radius:20px;background:linear-gradient(145deg,#081a38ed,#030918f5);box-shadow:0 0 9px var(--blue),inset 0 0 24px #0757b733;position:relative;overflow:hidden}
+.music{border-color:var(--purple);box-shadow:0 0 10px #a500ff, inset 0 0 26px #5b0b9933;padding:2.5%;display:flex;flex-direction:column}
+.mhead{display:flex;align-items:center;justify-content:space-between;font-size:clamp(15px,2vw,27px);font-weight:bold;color:#f1dcff;margin-bottom:2%}
+.select{border:1px solid var(--purple);background:#101d42;color:white;border-radius:12px;padding:7px 12px;font-size:clamp(15px,2vw,25px)}
+.track{display:grid;grid-template-columns:46% 1fr;gap:4%;align-items:center;min-height:0;flex:1}
+.cover{aspect-ratio:1/1;border-radius:16px;background:radial-gradient(circle at 25% 25%,#d42cff,#102c77 55%,#030a1b);border:1px solid #8c36ff;display:flex;align-items:center;justify-content:center;font-size:clamp(35px,6vw,85px);box-shadow:0 0 15px #9a26ff88}
+.song{font-size:clamp(13px,1.65vw,23px);font-weight:bold}.artist{font-size:clamp(10px,1.25vw,18px);color:#b8d5ff;margin-top:7px}
+.eq{height:22%;display:flex;align-items:end;gap:2%;padding:2% 0}.eq i{display:block;flex:1;border-radius:3px 3px 0 0;background:linear-gradient(to top,var(--purple),var(--blue),var(--cyan));height:var(--h);box-shadow:0 0 7px #a62bff}
+.progress{height:5px;border-radius:9px;background:#142d5b;margin:2% 0}.progress span{display:block;width:42%;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--purple),var(--cyan));box-shadow:0 0 9px var(--purple)}
+.times{display:flex;justify-content:space-between;color:#b9d7ff;font-size:clamp(10px,1.15vw,16px)}
+.controls{display:flex;align-items:center;justify-content:space-around;padding-top:3%;font-size:clamp(20px,3vw,42px);color:#e8eaff}
+.play{width:clamp(48px,6vw,78px);height:clamp(48px,6vw,78px);border-radius:50%;border:2px solid var(--purple);display:grid;place-items:center;color:white;box-shadow:0 0 14px var(--purple);font-size:clamp(20px,2.5vw,34px)}
+.map{background:linear-gradient(135deg,#07172c,#102e5c 60%,#090d26);border-color:var(--cyan);box-shadow:0 0 10px #007cff,inset 0 0 25px #005cff55}
+.city{position:absolute;inset:0;background:linear-gradient(180deg,#050c20aa,#06152d88),repeating-linear-gradient(25deg,transparent 0 9%,#1d4e7b55 9.2% 9.7%,transparent 10% 18%),repeating-linear-gradient(115deg,transparent 0 13%,#28608c44 13.2% 13.7%,transparent 14% 24%)}
+.city:after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;background:radial-gradient(ellipse at 60% 35%,#a528ff33,transparent 32%),linear-gradient(90deg,transparent,#09285c77,transparent)}
+.route{position:absolute;left:57%;top:25%;width:3px;height:63%;background:linear-gradient(var(--purple),var(--cyan));transform:rotate(18deg);box-shadow:0 0 14px var(--purple),0 0 25px var(--cyan)}
+.route:after{content:"";position:absolute;top:52%;left:-9px;border-left:11px solid transparent;border-right:11px solid transparent;border-bottom:23px solid var(--cyan);filter:drop-shadow(0 0 8px var(--cyan))}
+.turn{position:absolute;top:4%;left:2%;padding:1.5% 3%;border:1px solid #237cff;border-radius:14px;background:#082c79ed;font-size:clamp(17px,2.7vw,36px);box-shadow:0 0 12px #006dff}
+.zoom{position:absolute;right:2%;top:36%;display:flex;flex-direction:column;gap:8px}.zoom button{border:1px solid #238bff;border-radius:50%;width:clamp(35px,5vw,60px);height:clamp(35px,5vw,60px);background:#06142c;color:white;font-size:clamp(20px,3vw,35px)}
+.trip{position:absolute;bottom:3%;left:2%;background:#020817e8;border:1px solid #315b9c;border-radius:12px;padding:1.5% 2.5%;font-size:clamp(12px,1.8vw,24px)}
+.dock{height:19%;display:grid;grid-template-columns:repeat(6,1fr);gap:1%;padding:0 1.5% 1.3%}
+.tile{border:1px solid #176eff;border-radius:18px;background:linear-gradient(145deg,#102d65,#030a1d 70%);box-shadow:0 0 8px #075dff88,inset 0 0 20px #163c7b66;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5%;font-size:clamp(10px,1.5vw,20px);color:#f1f6ff;text-shadow:0 0 8px #3c8dff}
+.tile:nth-child(1),.tile:nth-child(4){border-color:var(--purple);box-shadow:0 0 9px #9e20ff,inset 0 0 20px #4c168855}
+.ico{font-size:clamp(23px,4vw,53px);line-height:1;color:#54caff;text-shadow:0 0 12px var(--blue)}.tile:nth-child(1) .ico,.tile:nth-child(4) .ico{color:#dc8aff;text-shadow:0 0 13px var(--purple)}
+@media(max-aspect-ratio:4/3){.main{grid-template-columns:35% 1fr}.dock{gap:.5%}.card{border-radius:12px}}
+</style></head>
+<body>
+<header class="top"><div class="brand">BLUE<b>DRIVE</b></div><div class="status"><span id="clock">19:42</span><span>ПТ • 08.11.2026</span><span>ᛒ　◉　▮▮▮</span><span>⚙</span></div></header>
+<section class="main">
+ <div class="card music">
+  <div class="mhead"><span>♫ Музыка</span><select class="select" id="source" aria-label="Источник музыки" onchange="sourceChanged()"><option>Яндекс Музыка</option><option>USB / SD</option><option>Радио FM</option></select></div>
+  <div class="track"><div class="cover" id="cover">♬</div><div><div class="song" id="song">На стиле</div><div class="artist" id="artist">Miyagi &amp; Endspiel</div></div></div>
+  <div class="eq" aria-hidden="true"><i style="--h:35%"></i><i style="--h:58%"></i><i style="--h:44%"></i><i style="--h:82%"></i><i style="--h:54%"></i><i style="--h:95%"></i><i style="--h:65%"></i><i style="--h:42%"></i><i style="--h:76%"></i><i style="--h:50%"></i><i style="--h:88%"></i><i style="--h:38%"></i><i style="--h:68%"></i></div>
+  <div class="progress"><span></span></div><div class="times"><span>01:24</span><span>03:37</span></div>
+  <div class="controls"><span>⤨</span><span>◀</span><button class="play" onclick="playMusic()">Ⅱ</button><span>▶</span><span>⟳</span></div>
+ </div>
+ <div class="card map"><div class="city"></div><div class="route"></div><div class="turn">⬆　1,2 км<br><small>　 Прямо</small></div><div class="zoom"><button onclick="Android.message('Масштаб карты регулируется в навигаторе')">+</button><button onclick="Android.message('Масштаб карты регулируется в навигаторе')">−</button><button onclick="Android.launch('nav')">➤</button></div><div class="trip">◷ 12 мин　│　8,7 км　│　19:54</div></div>
+</section>
+<nav class="dock">
+ <button class="tile" onclick="Android.launch('apps')"><span class="ico">▦</span>Приложения</button>
+ <button class="tile" onclick="Android.launch('nav')"><span class="ico">➤</span>Навигатор</button>
+ <button class="tile" onclick="Android.launch('radio')"><span class="ico">♧</span>Радио</button>
+ <button class="tile" onclick="Android.launch('video')"><span class="ico">▷</span>Видео</button>
+ <button class="tile" onclick="Android.launch('bluetooth')"><span class="ico">ᛒ</span>Bluetooth</button>
+ <button class="tile" onclick="Android.launch('phone')"><span class="ico">☎</span>Телефон</button>
+</nav>
+<script>
+function sourceChanged(){const s=document.getElementById('source').value;localStorage.setItem('bd_source',s);if(s==='Яндекс Музыка'){document.getElementById('song').textContent='На стиле';document.getElementById('artist').textContent='Miyagi & Endspiel';}else if(s==='USB / SD'){document.getElementById('song').textContent='Музыка с носителя';document.getElementById('artist').textContent='Выберите трек в плеере';}else{document.getElementById('song').textContent='Радио FM';document.getElementById('artist').textContent='Откройте штатное радио';}}
+function playMusic(){const s=document.getElementById('source').value;if(s==='Яндекс Музыка')Android.launch('music');else if(s==='Радио FM')Android.launch('radio');else Android.message('Для USB / SD откройте музыкальный плеер магнитолы');}
+function showHome(){}
+(function(){const s=localStorage.getItem('bd_source');if(s){document.getElementById('source').value=s;sourceChanged();}function tick(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});}tick();setInterval(tick,30000);})();
+</script>
+</body></html>
